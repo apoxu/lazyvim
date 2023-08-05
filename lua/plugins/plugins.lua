@@ -9,7 +9,9 @@ return {
     config = true,
   },
 
-  -- move navic to winbar
+  -- move navic to winbar:
+  -- luajit is based on lua5.1, but 'table.move' added on lua 5.3
+  -- so i hava to add 'barbecue.nvim' here
   {
     "nvim-lualine/lualine.nvim",
     opts = function(_, opts)
@@ -26,7 +28,11 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     config = function()
-      require("barbecue").setup()
+      require("barbecue").setup({
+        context_follow_icon_color = true,
+        show_dirname = false,
+        -- show_basename = false,
+      })
       require("barbecue.ui").toggle(true)
     end,
   },
@@ -39,12 +45,13 @@ return {
       require("better_escape").setup()
     end,
   },
+
   -- Configure gruvbox as colorscheme of LazyVim
   { "ellisonleao/gruvbox.nvim" },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox",
+      colorscheme = "catppuccin-latte",
     },
   },
 
@@ -74,10 +81,8 @@ return {
     end,
   },
 
-  -- CRUD for pairs
   {
     "echasnovski/mini.surround",
-    version = false,
     opts = {
       mappings = {
         add = "gsa",
@@ -115,6 +120,7 @@ return {
   -- restful test tool
   {
     "rest-nvim/rest.nvim",
+    lazy = "VeryLazy",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("rest-nvim").setup({

@@ -46,7 +46,7 @@ return {
     config = function()
       vim.g.gruvbox_material_enable_italic = true
       vim.g.gruvbox_material_background = "medium" -- "hard" "medium" "hard"
-      vim.g.gruvbox_material_foreground = "material" -- "material" "mix" "original"
+      vim.g.gruvbox_material_foreground = "mix" -- "material" "mix" "original"
     end,
   },
   {
@@ -74,6 +74,31 @@ return {
           post_open_hook = nil,
         })
       end,
+    },
+  },
+
+  -- For fzf-lua
+  {
+    "junegunn/fzf",
+    build = "./install --bin",
+  },
+  -- for rust
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, {
+        "rust-analyzer",
+      })
+    end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      setup = {
+        rust_analyzer = function()
+          return true
+        end,
+      },
     },
   },
 }
